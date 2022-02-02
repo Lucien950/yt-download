@@ -1,7 +1,7 @@
 let apiUrl: string;
 // TODO Deploy machine and get url
 if (process.env.NODE_ENV == "production") {
-    // apiUrl = "https://"; 
+    // apiUrl = "https://[URL].com/api"; 
 } else {
     apiUrl = "http://localhost:3001";
 }
