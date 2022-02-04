@@ -21,6 +21,7 @@ export interface Snippet {
     liveBroadcastContent: string;
     localized: Localized;
     defaultAudioLanguage: string;
+    tags:string[];
 }
 export interface Thumbnails {
     default: DefaultOrMediumOrHighOrStandardOrMaxres;
