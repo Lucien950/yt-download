@@ -6,15 +6,14 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    
     "docker-test": "docker run -p 3000:3000 gcr.io/yt-download-1eb1f/yt-download-website:latest",
-
     "docker-build": "docker build . -t gcr.io/yt-download-1eb1f/yt-download-website:latest",
     "deploy": "docker push gcr.io/yt-download-1eb1f/yt-download-website:latest",
     "docker-clean": "docker system prune -a",
-    "docker-full":"npm run docker-build && npm run deploy && npm run docker-clean"
+    "docker-full": "npm run docker-build && npm run deploy && npm run docker-clean"
   },
   "dependencies": {
+    "@ctrl/react-adsense": "^1.5.0",
     "next": "^12.0.10",
     "react": "17.0.2",
     "react-dom": "17.0.2"
