@@ -6,10 +6,13 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "docker": "docker build . -t gcr.io/yt-download-1eb1f/yt-download:latest",
-    "docker-run": "docker run -p 3000:3000 yt-download",
-    "deploy": "npm run docker && docker push gcr.io/yt-download-1eb1f/yt-download:latest",
-    "docker-clean": "docker system prune -a"
+    
+    "docker-test": "docker run -p 3000:3000 gcr.io/yt-download-1eb1f/yt-download-website:latest",
+
+    "docker-build": "docker build . -t gcr.io/yt-download-1eb1f/yt-download-website:latest",
+    "deploy": "docker push gcr.io/yt-download-1eb1f/yt-download-website:latest",
+    "docker-clean": "docker system prune -a",
+    "docker-full":"npm run docker-build && npm run deploy && npm run docker-clean"
   },
   "dependencies": {
     "next": "^12.0.10",
