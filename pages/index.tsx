@@ -140,7 +140,7 @@ const Home: NextPage = () => {
                   {videoData.title}
                 </h1>
                 <div className="flex flex-row gap-1 flex-wrap w-3/4 mt-2 mb-4">
-                  {videoData.tags.map((tag, i) => (
+                  {videoData.tags != undefined && videoData.tags.length > 0 && videoData.tags.map((tag, i) => (
                     <span className="text-sm border-2 rounded-full overflow-hidden py-1 px-2" key={i}>
                       {tag}
                     </span>
