@@ -4,6 +4,7 @@ import { BaseSyntheticEvent, useState } from 'react'
 import { apiUrl, ytPublic } from '../config'
 import { Snippet, YoutubeResponse } from '../types/youtube'
 import validYouTubeURL from '../utils/validURL'
+import { motion } from 'framer-motion'
 
 const Home: NextPage = () => {
 	const download = async (e: React.FormEvent<HTMLFormElement>)=>{
@@ -83,6 +84,11 @@ const Home: NextPage = () => {
       </Head>
       <div className="content pt-20">
         {/* search container */}
+        <div className="grid grid-cols-1 grid-rows-2 justify-items-center">
+          <p className='p-4 bg-gradient-to-br from-red-400 to-blue-400 text-transparent bg-clip-text text-6xl font-bold'>100% Legal</p>
+          <p className='bg-gradient-to-br from-red-400 to-blue-400 text-transparent bg-clip-text text-6xl font-bold'> 0% Ad-Free</p>
+          {/*<p className='pb-4 text-xl font-bold'> Envisioned by [Redacted] and [Redacted]</p>*/}
+        </div>
         <form onSubmit={download}>
           <div id="search" className="w-3/4 mx-auto relative flex items-center">
             <input
@@ -193,6 +199,31 @@ const Home: NextPage = () => {
             </div>
           )}
         </form>
+        {/*<motion.div>*/}
+        <div className='grid grid-cols-3 justify-items-stretch px-56 py-8'>
+            <div className="shadow-xl bg-green-100 m-3 rounded-2xl px-4 py-4 pb-6 transition duration-700 hover:scale-105">
+              <p className='text-right text-red-800 text-md font-bold'>=0.00%</p>
+              <p className='text-center font-bold text-6xl'>$0</p>
+              <p className='text-center text-xl'>Ad Revenue</p>
+            </div>
+          <div className="shadow-xl bg-blue-100 m-3 rounded-2xl px-4 py-4 pb-6 transition duration-700 hover:scale-105">
+            <p className='text-right text-red-800 text-md font-bold'>=0.00%</p>
+            <p className='text-center font-bold text-6xl'>0</p>
+            <p className='text-center text-xl'>Downloads</p>
+          </div>
+          <div className="shadow-xl bg-yellow-100 m-3 rounded-2xl px-4 py-4 pb-6 transition duration-700 hover:scale-105">
+            <p className='text-right text-red-800 text-md font-bold'>=0.00%</p>
+            <p className='text-center font-bold text-6xl'>0</p>
+            <p className='text-center text-xl'>Lawsuits</p>
+          </div>
+        </div>
+        {/*</motion.div>*/}
+        <div>
+          <div>
+            <p className='text-center text-2xl p-4'>This is a test</p>
+            <p className='text-center text-2xl p-4'>This is a test</p>
+          </div>
+        </div>
       </div>
     </>
   );
