@@ -50,7 +50,13 @@ const Home: NextPage = () => {
 		const url = new URL(textBox)
 		const videoID = url.searchParams.get('v')
 		const api = `https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${videoID}&key=${ytPublic}`
-		const allVideoData = await (await fetch(api)).json() as YoutubeResponse
+    const response = await fetch(api)
+    if(response.status != 200){
+      // TODO show error -> youtubeAPI error
+      console.error('Youtube API Error')
+      return
+    }
+		const allVideoData = await response.json() as YoutubeResponse
 		if(allVideoData.items.length == 0){
 			// TODO IMPLEMENT ERROR
 			setVideoData({} as Snippet)
