@@ -40,7 +40,7 @@ const Home: NextPage = () => {
 					let next: string;
 					if (res.type === "update") next = "PROGRESS" + ` ${res.progress}%` + (res.eta ? ` eta: ${res.eta}` : "")
 					else if (res.type === "download") next = "DOWNLOAD READY! " +  res.url
-					else if (res.type === "error") next = "ERROR " + res.error
+					else if (res.type === "error") next = "ERROR " + res.error!.message
 					else {console.error("Server Error: Response Did Not Include a Valid Type"); return}
 					
 					const nextElement = document.createElement("p") 
