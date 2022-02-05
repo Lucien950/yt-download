@@ -4,6 +4,7 @@ import { BaseSyntheticEvent, useState } from 'react'
 import { Adsense } from '@ctrl/react-adsense';
 
 import { Snippet, YoutubeResponse } from '../types/youtube'
+import response from '../types/response'
 import { apiUrl, ytPublic } from '../config'
 import validYouTubeURL from '../utils/validURL'
 
@@ -11,6 +12,8 @@ import validYouTubeURL from '../utils/validURL'
 const Home: NextPage = () => {
 	const download = async (e: React.FormEvent<HTMLFormElement>)=>{
 		e.preventDefault()
+		// RESET LOG BOX
+		document.getElementById("logs")!.innerHTML = ""
 
 		// just trust me™
 		const textBox = oldTextBox
@@ -24,9 +27,28 @@ const Home: NextPage = () => {
 		videoRequestURL.searchParams.append('format', formatState)
 		videoRequestURL.searchParams.append('title', videoData.title)
 
-		const a = document.createElement('a')
-		a.href = videoRequestURL.href
-		a.click()
+		const response = await fetch(videoRequestURL.href)
+		const body = response.body as ReadableStream
+		const reader = body.getReader()
+		while(true){
+			const { done, value: chunk } = await reader.read()
+			if(done) break
+			if(chunk){
+				const string = new TextDecoder().decode(chunk)
+				string.slice(0, -1).split("\n").forEach(line => {
+					const res = JSON.parse(line) as response
+					let next: string;
+					if (res.type === "update") next = "PROGRESS" + ` ${res.progress}%` + (res.eta ? ` eta: ${res.eta}` : "")
+					else if (res.type === "download") next = "DOWNLOAD READY! " +  res.url
+					else if (res.type === "error") next = "ERROR " + res.error
+					else {console.error("Server Error: Response Did Not Include a Valid Type"); return}
+					
+					const nextElement = document.createElement("p") 
+					nextElement.innerText = next
+					document.getElementById("logs")!.appendChild(nextElement)
+				})
+			}
+		}
 		// TODO Success message?
 	}
 	const buttonChangeText = (e: BaseSyntheticEvent)=>{
@@ -44,6 +66,7 @@ const Home: NextPage = () => {
 			// TODO show error -> not valid youtube url
 			setVideoData({} as Snippet)
 			setValidTextBox(false)
+			setOldTextBox("")
 			console.error('Invalid URL')
 			return 
 		}
@@ -143,7 +166,8 @@ const Home: NextPage = () => {
 								id="videoThumbnail"
 								className="w-full"
 							/>
-							<div>
+							{/* TODO Fix Stopgap Solution */}
+							<div className="overflow-hidden">
 								<h1 id="videoTitle" className="font-bold text-3xl">
 									{videoData.title}
 								</h1>
@@ -212,6 +236,7 @@ const Home: NextPage = () => {
 						</div>
 					)}
 				</form>
+				<div id="logs" className="border-2 border-gray-300 bg-gray-50 rounded-lg p-3 mx-5"></div>
 				<Adsense
 					client="ca-pub-5570463079801584"
 					slot="8555285477"
