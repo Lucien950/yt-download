@@ -2,7 +2,7 @@ interface response {
     type: "download" | "update" | "error"
     url?: string
     error?: Error
-    progress?: string
+    progress?: number
     eta?: string
 }
 
