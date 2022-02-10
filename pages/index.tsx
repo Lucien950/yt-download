@@ -14,9 +14,6 @@ import { LogDownload, LogError, LogUpdate } from '../components/logComponents';
 const Home: NextPage = () => {
 	const download = async (e: React.FormEvent<HTMLFormElement>)=>{
 		e.preventDefault()
-		// RESET LOG BOX
-		document.getElementById("logs")!.innerHTML = ""
-
 		// just trust me™
 		const textBox = oldTextBox
 		if(!validYouTubeURL(textBox)){
@@ -43,16 +40,9 @@ const Home: NextPage = () => {
 				})
 			}
 		}
-		// TODO Success message?
 	}
-	const buttonChangeText = (e: BaseSyntheticEvent)=>{
-		e.preventDefault()
-		changeText((document.getElementById("url")! as HTMLInputElement).value as string)
-	}
-	const inputChangeText = (e: BaseSyntheticEvent)=>{
-		e.preventDefault()
-		changeText((document.getElementById("url")! as HTMLInputElement).value as string)
-	}
+	const buttonChangeText = (e: BaseSyntheticEvent)=>{ e.preventDefault(); changeText((document.getElementById("url")! as HTMLInputElement).value as string) }
+	const inputChangeText = (e: BaseSyntheticEvent)=>{ e.preventDefault(); changeText((document.getElementById("url")! as HTMLInputElement).value as string) }
 	const changeText = async (textBox: string)=>{
 		if(textBox == oldTextBox) return
 		
