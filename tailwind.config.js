@@ -6,6 +6,8 @@ module.exports = {
   presets: [],
   darkMode: 'media', // or 'class'
   theme: {
+    extend:{
+    },
     screens: {
       sm: '640px',
       md: '768px',
@@ -229,7 +231,9 @@ module.exports = {
       150: '1.5',
       200: '2',
     },
-    container: {},
+    container: {
+      center: true,
+    },
     content: {
       none: 'none',
     },
@@ -346,6 +350,7 @@ module.exports = {
       DEFAULT: '1',
     },
     fontFamily: {
+      title: 'Raleway',
       sans: [
         'ui-sans-serif',
         'system-ui',
